@@ -1,4 +1,4 @@
-import { render, RenderResult, screen } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 import { EggList } from './EggList';
 
 describe('Magic egg list', () => {
