@@ -3,7 +3,7 @@ import Field, { FieldState } from './Field';
 
 describe('Field component', () => {
     function renderField(state: FieldState): HTMLButtonElement {
-        const field = render(<Field state={state} onClick={() => {}} />)
+        const field = render(<Field id="0" state={state} onClick={() => {}} />)
         const button = field.getByRole("button").closest("button");
 
         expect(button).not.toBeNull();
@@ -47,7 +47,7 @@ describe('Field component', () => {
     it('Calls onClick', () => {
         const spy = jest.fn();
 
-        const field = render(<Field state={FieldState.EMPTY} onClick={spy} />);
+        const field = render(<Field id="0" state={FieldState.EMPTY} onClick={spy} />);
 
         fireEvent.click(field.getByRole("button"));
 

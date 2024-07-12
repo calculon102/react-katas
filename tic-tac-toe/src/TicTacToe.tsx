@@ -6,12 +6,29 @@ enum GameState {
     TURN_O,
     WIN_X,
     WIN_O,
+    DRAW,
 }
 
 const TicTacToe = () => {
     const [fields, setFields] = useState<FieldState[]>(new Array(9).fill(FieldState.EMPTY));
 
     const gameState = checkGameState();
+    const gameStateMessage = getGameStateMessage(gameState);
+
+    function getGameStateMessage(state: GameState){
+        switch(state) {
+            case GameState.TURN_X:
+                return "It's your turn, X";
+            case GameState.TURN_O:
+                return "It's your turn, O";
+            case GameState.WIN_X:
+                return "X has won!";
+            case GameState.WIN_O:
+                return "O has won!";
+            case GameState.DRAW:
+                return "Draw!";
+        }
+    }
 
     function checkGameState(): GameState {
         if (checkWin(FieldState.X)) {
@@ -30,6 +47,10 @@ const TicTacToe = () => {
             } else if (fields[i] == FieldState.O) {
                 countO += 1;
             }
+        }
+
+        if (countX + countO == 9) {
+            return GameState.DRAW;
         }
 
         if (countX == countO) {
@@ -74,22 +95,22 @@ const TicTacToe = () => {
 
     return (
         <div>
-            <h2>{gameState}</h2>
+            <h2>{gameStateMessage}</h2>
             <div>
                 <div>
-                    <Field state={fields[0]} onClick={() => handleFieldClick(0)} />
-                    <Field state={fields[1]} onClick={() => handleFieldClick(1)} />
-                    <Field state={fields[2]} onClick={() => handleFieldClick(2)} />
+                    <Field id="field0" state={fields[0]} onClick={() => handleFieldClick(0)} />
+                    <Field id="field1" state={fields[1]} onClick={() => handleFieldClick(1)} />
+                    <Field id="field2" state={fields[2]} onClick={() => handleFieldClick(2)} />
                 </div>
                 <div>
-                    <Field state={fields[3]} onClick={() => handleFieldClick(3)} />
-                    <Field state={fields[4]} onClick={() => handleFieldClick(4)} />
-                    <Field state={fields[5]} onClick={() => handleFieldClick(5)} />
+                    <Field id="field3" state={fields[3]} onClick={() => handleFieldClick(3)} />
+                    <Field id="field4" state={fields[4]} onClick={() => handleFieldClick(4)} />
+                    <Field id="field5" state={fields[5]} onClick={() => handleFieldClick(5)} />
                 </div>
                 <div>
-                    <Field state={fields[6]} onClick={() => handleFieldClick(6)} />
-                    <Field state={fields[7]} onClick={() => handleFieldClick(7)} />
-                    <Field state={fields[8]} onClick={() => handleFieldClick(8)} />
+                    <Field id="field6" state={fields[6]} onClick={() => handleFieldClick(6)} />
+                    <Field id="field7" state={fields[7]} onClick={() => handleFieldClick(7)} />
+                    <Field id="field8" state={fields[8]} onClick={() => handleFieldClick(8)} />
                 </div>
             </div>
             <div>

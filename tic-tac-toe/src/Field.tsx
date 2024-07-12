@@ -6,6 +6,7 @@ export enum FieldState {
 }
 
 interface FieldProps {
+    id: string;
     onClick: () => void;
     state: FieldState;
 }
@@ -17,6 +18,7 @@ const Field = (props: FieldProps) => {
 
     return (
         <button 
+            data-testid={props.id}
             disabled={props.state != FieldState.EMPTY}
             onClick={props.onClick}
             type="button">
