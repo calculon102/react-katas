@@ -11,6 +11,7 @@ enum GameState {
 
 const TicTacToe = () => {
     const [fields, setFields] = useState<FieldState[]>(new Array(9).fill(FieldState.EMPTY));
+    const [history, setHistory] = useState<number[]>([]);
 
     const gameState = checkGameState();
     const gameStateMessage = getGameStateMessage(gameState);
@@ -90,7 +91,33 @@ const TicTacToe = () => {
                 return i == index ? FieldState.O : value;
             })
             setFields(newFields);
+        } else {
+            return;
         }
+
+        const newHistory = [...history, index];
+        setHistory(newHistory);
+    }
+
+    function handleReset() {
+       const newFields = new Array(9).fill(FieldState.EMPTY);
+       setFields(newFields);
+       setHistory([]);
+    }
+
+    function handleGoBack(round: number) {
+        // Go back in time
+        const newFields = [...fields];
+
+        for (let i = history.length - 1; i >= round; i--) {
+            newFields[history[i]] = FieldState.EMPTY;
+        }
+
+        setFields(newFields);
+
+        // Remove uneeded history
+        const newHistory = round > 0 ? history.slice(0, round) : [];
+        setHistory(newHistory);
     }
 
     return (
@@ -114,10 +141,12 @@ const TicTacToe = () => {
                 </div>
             </div>
             <div>
-                <button type="button">Reset</button>
+                <button type="button" onClick={handleReset}>Reset</button>
             </div>
             <div>
-                <button type="button">0</button>
+                {history.map((value, index) => (
+                    <button key={value} type="button" onClick={() => handleGoBack(index)}>{index + 1}</button>
+                ))}
             </div>
         </div>
     )
