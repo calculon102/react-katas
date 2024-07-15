@@ -121,8 +121,8 @@ const TicTacToe = () => {
     }
 
     return (
-        <div>
-            <h2>{gameStateMessage}</h2>
+        <div className="flex flex-col text-center gap-y-2">
+            <h2 className="font-bold text-white text-xl">{gameStateMessage}</h2>
             <div>
                 <div>
                     <Field id="field0" state={fields[0]} onClick={() => handleFieldClick(0)} />
@@ -141,11 +141,11 @@ const TicTacToe = () => {
                 </div>
             </div>
             <div>
-                <button type="button" onClick={handleReset}>Reset</button>
+                <button className="rounded bg-gray-600 text-white px-2 py-1" type="button" onClick={handleReset}>Reset</button>
             </div>
-            <div>
+            <div className="flex gap-x-1">
                 {history.map((value, index) => (
-                    <button key={value} type="button" onClick={() => handleGoBack(index)}>{index + 1}</button>
+                    <button className="rounded bg-gray-600 text-white px-2 py-1" key={value} type="button" onClick={() => handleGoBack(index)}>{index + 1}</button>
                 ))}
             </div>
         </div>
